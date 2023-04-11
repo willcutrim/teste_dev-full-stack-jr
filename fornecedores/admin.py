@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Fornecedor, Endereco
+
+admin.site.register(Fornecedor)
+admin.site.register(Endereco)
+
