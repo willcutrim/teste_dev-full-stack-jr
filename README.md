@@ -3,7 +3,7 @@
 ## Instalação do projeto.
 Para utilizar voce precisa primeiro, executar o comando:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 execute os comandos:
 ```
