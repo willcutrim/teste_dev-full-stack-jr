@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -16,3 +17,16 @@ class FornecedoresList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FornecedorDetail(APIView):
+    def get_fornecedor(self, id):
+        try:
+            return Fornecedor.objects.get(id=id)
+        except Fornecedor.DoesNotExist:
+            raise Http404
+        
+    def get(self, request, id):
+        fornecedor_id = self.get_fornecedor(id)
+        serializer = FornecedorSerializer(fornecedor_id)
+        return Response(serializer.data)
