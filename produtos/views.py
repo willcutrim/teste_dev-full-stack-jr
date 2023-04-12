@@ -22,3 +22,16 @@ class ProdutoList(APIView):
             produto = serializer.save()
             return Response(ProdutoSerializer(produto).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+class ProdutoInfo(APIView):
+    def get_produto(self, id):
+        try:
+            return Produto.objects.get(id=id)
+        except Produto.DoesNotExist:
+            raise Http404
+
+    def get(self, request, id):
+        fornecedor_id = self.get_produto(id)
+        serializer = ProdutoSerializer(fornecedor_id)
+        return Response(serializer.data)
