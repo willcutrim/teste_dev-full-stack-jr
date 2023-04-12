@@ -5,10 +5,6 @@ Para utilizar voce precisa primeiro, executar o comando:
 ```
 pip install -r requirements.txt
 ```
-execute os comandos:
-```
-python manage.py makemigrations / python manage.py migrate
-```
 
 Depois execute o projeto:
 ```
