@@ -36,3 +36,20 @@ class ProdutoInfo(APIView):
         fornecedor_id = self.get_produto(id)
         serializer = ProdutoSerializer(fornecedor_id)
         return Response(serializer.data)
+    
+    def delete(self, request, id):
+        produto = self.get_produto(id)
+        produto.delete()
+        message = {'message': 'Produto deletado com sucesso!'}
+        return Response(message, status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, id):
+        produto = self.get_produto(id)
+        categoria_id = request.data.get('categoria')
+        categoria = Categoria.objects.get(id=categoria_id)
+        serializer = ProdutoSerializer(produto, data=request.data)
+        if serializer.is_valid():
+            serializer.validated_data['categoria'] = categoria
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
