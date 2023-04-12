@@ -30,3 +30,9 @@ class FornecedorDetail(APIView):
         fornecedor_id = self.get_fornecedor(id)
         serializer = FornecedorSerializer(fornecedor_id)
         return Response(serializer.data)
+    
+    def delete(self, request, id):
+        fornecedor = self.get_fornecedor(id)
+        fornecedor.delete()
+        message = {'message': 'fornecedor deletado com sucesso!'}
+        return Response(message, status=status.HTTP_204_NO_CONTENT)
